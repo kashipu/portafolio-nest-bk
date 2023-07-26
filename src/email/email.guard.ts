@@ -5,7 +5,7 @@ import { isEmail } from 'class-validator';
 
 @Injectable()
 export class EmailGuard implements CanActivate {
-  static EMAIL_HEADER = 'Sec-4-Email';
+  static EMAIL_HEADER = 'X-Sec-4-Email';
 
   canActivate(
     context: ExecutionContext,
@@ -13,7 +13,7 @@ export class EmailGuard implements CanActivate {
     const request: Request = context.switchToHttp().getRequest();
     const email = request.get(EmailGuard.EMAIL_HEADER);
     if (!isEmail(email)) {
-      throw new UnauthorizedException('Debe proveer un email válido en el header `Sec-4-Email`');
+      throw new UnauthorizedException('Debe proveer un email válido en el header `X-Sec-4-Email`');
     }
     return true;
   }
